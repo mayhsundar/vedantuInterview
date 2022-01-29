@@ -74,7 +74,6 @@ public class LoginPage extends BasePage {
 	}
 
 	driver.switchTo().window(parentWindowHandle);
-//	waitForElementToBeInvisible(loginButton);
     }
 
     public void isContinueButtonIsDisplay() {
