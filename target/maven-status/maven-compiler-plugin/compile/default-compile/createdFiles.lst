@@ -1,0 +1,14 @@
+driversmanager\DriverProvider.class
+pages\BasePage.class
+pages\LoginPage.class
+pages\HomePage.class
+constants\BrowserNames.class
+driversfactory\ChromeBrowser.class
+pages\HotelsPage.class
+utils\PropertiesReader.class
+utils\Properties.class
+pages\HotelResultPage.class
+driversmanager\DriverManager.class
+utils\Browsers.class
+driversfactory\BrowserFactory.class
+pages\MyAccountPage.class
