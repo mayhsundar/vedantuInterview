@@ -9,6 +9,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import driversmanager.DriverProvider;
+import utils.Context;
 
 public class HotelResultPage extends BasePage {
 
@@ -50,6 +51,7 @@ public class HotelResultPage extends BasePage {
     public HotelResultPage() {
 	driver = DriverProvider.getDriver();
 	PageFactory.initElements(driver, this);
+	context = new Context();
     }
 
     public void setMinPriceRange(String mP) {
@@ -95,16 +97,18 @@ public class HotelResultPage extends BasePage {
     }
 
 
-    public void closeTheHotelPage() {
+    public String closeTheHotelPage() {
+	String hotelLink = "";
 	for (String c : driver.getWindowHandles()) {
 	    if (!c.equalsIgnoreCase(parentString)) {
 		driver.switchTo().window(c);
-		System.out.println(driver.getCurrentUrl());
+		hotelLink = driver.getPageSource();
 		driver.close();
 	    }
 	}
 
 	driver.switchTo().window(parentString);
+	return hotelLink;
     }
 
     public void selectLastPopularity() {

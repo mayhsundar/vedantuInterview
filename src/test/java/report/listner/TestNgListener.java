@@ -30,7 +30,7 @@ public class TestNgListener implements ITestListener {
     @Override
     public void onTestSuccess(ITestResult result) {
 
-        System.out.println("Test case pass and detail are " + result.getName());
+	ExtentTestManager.getTest().log(LogStatus.PASS, "Test case passed", "" + ExtentTestManager.getTest());
 
     }
 
@@ -51,7 +51,7 @@ public class TestNgListener implements ITestListener {
             }
         }
 
-        System.out.println("Test case Fail and detail are" + result.getName());
+	System.out.println("Test case Fail and detail are " + result.getName());
 	String errorMsg = result.getThrowable().getMessage();
 
 	errorMsg = errorMsg != null ? errorMsg.split("\\(Session info:")[0] : "Some infra failure occured";

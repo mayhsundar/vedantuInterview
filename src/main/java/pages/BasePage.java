@@ -18,9 +18,12 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
+import utils.Context;
+
 public class BasePage {
 
     protected WebDriver driver;
+    protected Context context;
 
     protected void scrollToView(WebElement element) {
 	if (element.isEnabled()) {
@@ -182,4 +185,17 @@ public class BasePage {
     protected void clickByAction(WebElement el) {
 	new Actions(driver).moveToElement(el).click().build().perform();
     }
+
+    protected void click(WebElement e) {
+	try {
+	    e.click();
+	} catch (Exception ex) {
+	    try {
+		clickByAction(e);
+	    } catch (Exception ex2) {
+		jsClick(e);
+	    }
+	}
+    }
+
 }

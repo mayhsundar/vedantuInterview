@@ -69,10 +69,11 @@ public class HotelsPage extends BasePage {
 	String checkout = LocalDateTime.now().plusWeeks(1).plusDays(1).format(df);
 
 	for (WebElement e : dates) {
-	    if (e.getAttribute("aria-label").equals(checkIn))
-		e.click();
+	    if (e.getAttribute("aria-label").equals(checkIn)) {
+		click(e);
+	    }
 	    if (e.getAttribute("aria-label").equals(checkout)) {
-		e.click();
+		click(e);
 		break;
 	    }
 	}
@@ -93,8 +94,7 @@ public class HotelsPage extends BasePage {
 	    waitForElementTobeClickable(childAges.get(0));
 	    selectByValue(childAges.get(0), String.valueOf(ageChild));
 	}
-
-	submitGuestFormLink.click();
+	jsClick(submitGuestFormLink);
     }
 
     public void clickSearchButton() {

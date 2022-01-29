@@ -8,6 +8,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Listeners;
 
+import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 import driversmanager.DriverManager;
@@ -18,6 +19,7 @@ import pages.LoginPage;
 import pages.MyAccountPage;
 import report.ExtentTestManager;
 import report.listner.TestNgListener;
+import utils.Context;
 
 @Listeners(TestNgListener.class)
 public class TestBase {
@@ -28,6 +30,8 @@ public class TestBase {
     protected HotelsPage HotelsPage;
     protected HotelResultPage hotelResultPage;
     protected MyAccountPage myAccountPage;
+    protected ExtentTest extentTest;
+    protected Context context;
 
 
     @BeforeMethod(alwaysRun = true)
@@ -38,8 +42,13 @@ public class TestBase {
 	HotelsPage = new HotelsPage();
 	hotelResultPage = new HotelResultPage();
 	myAccountPage = new MyAccountPage();
-	ExtentTestManager.getTest().log(LogStatus.INFO, "hellooo this is ");
+	context = new Context();
 
+
+    }
+    protected void initExtentTest() {
+	extentTest = ExtentTestManager.getTest();
+	extentTest.assignAuthor("SHYAM SUNDAR").assignCategory("VEDANTU INTERVIEW");
 
     }
 
@@ -54,5 +63,9 @@ public class TestBase {
 	    driver.quit();
 	    driver = null;
 	}
+    }
+
+    public void setExtentLog(String step, String message) {
+	extentTest.log(LogStatus.PASS, step, message);
     }
 }
