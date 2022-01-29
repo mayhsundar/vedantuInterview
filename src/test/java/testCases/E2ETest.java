@@ -14,7 +14,7 @@ public class E2ETest extends TestBase {
 
 
     @Author(name = TesterName.SHYAM)
-    @TestCaseNotes(Steps = "https://www.makemytrip.com || click on login button|| enter the  valid user id || enter the valid password|| login", expecatedResult = "User should be login successfully")
+    @TestCaseNotes(Steps = "https://www.makemytrip.com || click on login button|| enter the  valid user id || enter the valid password|| login || adding hotel", expecatedResult = "User should be login successfully")
     @Test(groups = {Categories.SMOKE})
     public void e2eTest() {
 
@@ -26,9 +26,9 @@ public class E2ETest extends TestBase {
 	navigateTo(Properties.baseUrl);
 	loginPage.isLoginButtonIsDisplay();
 	loginPage.clickOnLoginButton();
-	setExtentLog("", "clicking the google login button");
+	setExtentLog("Google signin process:", "clicking the google login button");
 	loginPage.enterLoginCredsInGoogleSignInBox(Properties.googleEmail, Properties.googlePassword);
-	setExtentLog("Google signin process:", "Entering google creds to login");
+	setExtentLog("", "Entering google creds to login");
 	homePage.waitUntilUserLoggedIn();
 
 	setExtentLog("Hotel booking process:", "click on hotels link");
@@ -36,7 +36,7 @@ public class E2ETest extends TestBase {
 	setExtentLog("", "selecting city " + Properties.hotelcity);
 	HotelsPage.selectCity();
 
-	setExtentLog("CheckIn and Checkout time set", "selecting staying time: 1 week + 1 day from today");
+	setExtentLog("CheckIn and Checkout date", "selecting staying time: 1 week + 1 day from today");
 	HotelsPage.selectDate();
 
 	setExtentLog("Person selection", "selecting number of persons");
@@ -58,8 +58,8 @@ public class E2ETest extends TestBase {
 	Assert.assertTrue(hotelResultPage.selectHotel(), "Hotel could not be selected due to an issue");
 	hotelLink = hotelResultPage.closeTheHotelPage();
 
-//	setExtentLog("Hotel link after price filter",
-//		"Check this hotel:<a href='" + hotelLink + "'>open hotel link</a>");
+	setExtentLog("Hotel link after price filter",
+		"Check this hotel : <a href='" + hotelLink + "'>open hotel link</a>");
 
 	setExtentLog("Clearing filter", "checking if filter was removed or not");
 	hotelResultPage.clearFilter();
@@ -75,14 +75,14 @@ public class E2ETest extends TestBase {
 
 	hotelLink = hotelResultPage.closeTheHotelPage();
 	System.out.println(hotelLink);
-//	setExtentLog("Hotel link after popular filter",
-//		"Check this hotel:<a href='" + hotelLink + "'>open hotel link</a>");
+	setExtentLog("Hotel link after popular filter",
+		"Check this hotel : <a href='" + hotelLink + "'>open hotel link</a>");
 
 	hotelResultPage.clickOnLoginOptionsLink();
 	hotelResultPage.clickOnMyProfileLink();
 	setExtentLog("Logout process", "logging out from the application");
 	myAccountPage.clickOnLogOutLink();
-	setExtentLog("Logout process", "has been logged out :)");
+	setExtentLog("", "user has has been logged out :)");
 
     }
 

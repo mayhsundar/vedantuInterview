@@ -102,7 +102,7 @@ public class HotelResultPage extends BasePage {
 	for (String c : driver.getWindowHandles()) {
 	    if (!c.equalsIgnoreCase(parentString)) {
 		driver.switchTo().window(c);
-		hotelLink = driver.getPageSource();
+		hotelLink = driver.getCurrentUrl();
 		driver.close();
 	    }
 	}
