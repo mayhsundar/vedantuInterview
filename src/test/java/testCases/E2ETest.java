@@ -1,5 +1,6 @@
 package testCases;
 
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import annotation.Author;
@@ -23,15 +24,16 @@ public class E2ETest extends TestBase {
         loginPage.isLoginButtonIsDisplay();
         loginPage.clickOnLoginButton();
 	loginPage.enterLoginCredsInGoogleSignInBox(Properties.googleEmail, Properties.googlePassword);
-	homePage.isUserLoggedIn();
+	homePage.waitUntilUserLoggedIn();
+
 	homePage.clickOnHotelLink();
 
-	try {
-	    Thread.sleep(10000);
-	} catch (InterruptedException e1) {
-	    // TODO Auto-generated catch block
-	    e1.printStackTrace();
-	}
+//	try {
+//	    Thread.sleep(10000);
+//	} catch (InterruptedException e1) {
+//	    // TODO Auto-generated catch block
+//	    e1.printStackTrace();
+//	}
 	HotelsPage.selectCity();
 	HotelsPage.selectDate();
 	HotelsPage.selectPerson();
@@ -39,7 +41,7 @@ public class E2ETest extends TestBase {
 	hotelResultPage.setMinPriceRange(min);
 //	hotelResultPage.setMaxPriceRange(max);
 //	Assert.assertTrue(hotelResultPage.isFilterDoneForPrice(min, max));
-	hotelResultPage.selectHotel();
+	Assert.assertTrue(hotelResultPage.selectHotel(), "Hotel could not be selected due to an issue");
 	hotelResultPage.closeTheHotelPage();
 	hotelResultPage.sortByPopularity();
 	hotelResultPage.clickOnSearchPopularBtn();

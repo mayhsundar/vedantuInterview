@@ -46,7 +46,7 @@ public class TestBase {
     @AfterMethod(alwaysRun = true)
     public void afterMethod(ITestResult result) {
         if (null != driver) {
-//            driver.quit();
+	    driver.quit();
             driver = null;
         }
     }

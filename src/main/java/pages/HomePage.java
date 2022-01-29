@@ -18,6 +18,9 @@ public class HomePage extends BasePage {
     @FindBy(css = "a[class*='SearchBtn']")
     private WebElement searchButton;
 
+    @FindBy(css = "*[data-cy='loggedInUser']")
+    private WebElement loggedInUserText;
+
     public HomePage() {
 	driver = DriverProvider.getDriver();
 	PageFactory.initElements(driver, this);
@@ -33,6 +36,9 @@ public class HomePage extends BasePage {
 	Assert.assertTrue(loggedInUser.isDisplayed(), "User could not be able to login");
     }
 
+    public void waitUntilUserLoggedIn() {
+	waitForElementToBeDisplayNormalWait(loggedInUserText);
+    }
 
 
 }

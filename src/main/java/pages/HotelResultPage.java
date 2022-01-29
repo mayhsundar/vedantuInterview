@@ -2,6 +2,7 @@ package pages;
 
 import java.util.List;
 
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -81,9 +82,18 @@ public class HotelResultPage extends BasePage {
 	return matched;
     }
 
-    public void selectHotel() {
+    public boolean selectHotel() {
+	WebElement hotel = hotelsList.get(0);
 	parentString = driver.getWindowHandle();
-	hotelsList.get(0).click();
+	waitForElementTobeClickable(hotelsList.get(0));
+	boolean issueWithClick = true;
+	try {
+	    hotel.click();
+	} catch (ElementClickInterceptedException e) {
+	    System.err.println("Issue with clicking interceptio, retrying...");
+	    issueWithClick = handleInterceptionClick(hotel);
+	}
+	return issueWithClick;
     }
 
     public void closeTheHotelPage() {

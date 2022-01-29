@@ -74,6 +74,7 @@ public class LoginPage extends BasePage {
 	}
 
 	driver.switchTo().window(parentWindowHandle);
+
     }
 
     public void isContinueButtonIsDisplay() {
