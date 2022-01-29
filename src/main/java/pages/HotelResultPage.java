@@ -42,6 +42,9 @@ public class HotelResultPage extends BasePage {
     @FindBy(css = "a[data-cy='userMenuMyProfile']")
     private WebElement opemMyProfileLink;
 
+    @FindBy(xpath = "//a[text()='Clear']")
+    private WebElement filterClearButton;
+
     private String parentString;
 
     public HotelResultPage() {
@@ -51,13 +54,6 @@ public class HotelResultPage extends BasePage {
 
     public void setMinPriceRange(String mP) {
 	waitForElementTobeClickable(popularPlaces);
-
-//	try {
-//	    Thread.sleep(6000);
-//	} catch (InterruptedException e) {
-//	    // TODO Auto-generated catch block
-//	    e.printStackTrace();
-//	}
 	waitForElementTobeClickable(priceMin);
 	priceMin.sendKeys(mP);
     }
@@ -69,9 +65,11 @@ public class HotelResultPage extends BasePage {
     public void setPriceRangeFilter() {
 	waitForElementTobeClickable(popularPlaces);
 	priceRangeSetButton.click();
+
     }
 
     public boolean isFilterDoneForPrice(String min, String max) {
+	waitForElementTobeClickable(filterClearButton);
 	boolean matched = false;
 	if (filtersTexts.size() > 0) {
 	    for (WebElement c : filtersTexts) {
@@ -84,8 +82,8 @@ public class HotelResultPage extends BasePage {
 
     public boolean selectHotel() {
 	WebElement hotel = hotelsList.get(0);
+	waitForElementTobeClickable(hotel);
 	parentString = driver.getWindowHandle();
-	waitForElementTobeClickable(hotelsList.get(0));
 	boolean issueWithClick = true;
 	try {
 	    hotel.click();
@@ -95,6 +93,7 @@ public class HotelResultPage extends BasePage {
 	}
 	return issueWithClick;
     }
+
 
     public void closeTheHotelPage() {
 	for (String c : driver.getWindowHandles()) {
@@ -108,12 +107,13 @@ public class HotelResultPage extends BasePage {
 	driver.switchTo().window(parentString);
     }
 
-    public void sortByPopularity() {
-	polularCheckboxes.get(polularCheckboxes.size() - 1).click();
+    public void selectLastPopularity() {
+	WebElement lastCheckbox = polularCheckboxes.get(polularCheckboxes.size() - 1);
+	clickByAction(lastCheckbox);
     }
 
     public void clickOnSearchPopularBtn() {
-	searchPopularBtn.get(0).click();
+	jsClick(searchPopularBtn.get(0));
     }
 
     public void clickOnLoginOptionsLink() {
@@ -123,4 +123,18 @@ public class HotelResultPage extends BasePage {
     public void clickOnMyProfileLink() {
 	jsClick(opemMyProfileLink);
     }
+
+    public void clearFilter() {
+	waitForElementToBeVisible(filterClearButton);
+	filterClearButton.click();
+    }
+
+    public boolean isFilterClear() {
+	boolean cleared = true;
+	if (filtersTexts.size() != 0) {
+	    cleared = false;
+	}
+	return cleared;
+    }
+
 }

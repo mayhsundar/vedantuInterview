@@ -12,8 +12,6 @@ public class ExtentManager {
         if (extent == null) {
             extent = new ExtentReports("./report/ExtentReportResults.html", true);
         }
-
-
         return extent;
     }
 }

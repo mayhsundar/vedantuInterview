@@ -30,16 +30,8 @@ public class BasePage {
     }
 
     protected void waitForElementTobeClickable(WebElement webElement) {
-	new WebDriverWait(driver, 30).until(ExpectedConditions.elementToBeClickable(webElement));
-    }
-
-    protected void wait(int millis) {
-	try {
-	    Thread.sleep(millis);
-	} catch (InterruptedException e) {
-	    e.printStackTrace();
-	}
-
+	new WebDriverWait(driver, 30)
+		.until(ExpectedConditions.refreshed(ExpectedConditions.elementToBeClickable(webElement)));
     }
 
     protected void waitForElementToBeVisible(WebElement element) {
@@ -104,6 +96,11 @@ public class BasePage {
 	driver.navigate().refresh();
 	waitForPageToLoad();
 
+    }
+
+    protected void waitForListToLoad(List<WebElement> el) {
+
+	new WebDriverWait(driver, 20).until(dr -> el.size() > 0);
     }
 
     public static void mouseHoverJScript(WebDriver driver, WebElement element) {
@@ -185,5 +182,4 @@ public class BasePage {
     protected void clickByAction(WebElement el) {
 	new Actions(driver).moveToElement(el).click().build().perform();
     }
-
 }
