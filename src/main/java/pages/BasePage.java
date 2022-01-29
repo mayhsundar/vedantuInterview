@@ -4,9 +4,7 @@ import java.time.Duration;
 import java.util.List;
 import java.util.function.Function;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -87,21 +85,6 @@ public class BasePage {
     }
 
 
-    protected boolean isAttributePresent(WebElement element, String attribute) {
-        Boolean result = false;
-        try {
-            String value = element.getAttribute(attribute);
-            if (value != null) {
-                result = true;
-            }
-        } catch (Exception e) {
-
-            return false;
-        }
-
-        return result;
-    }
-
     protected void jsClick(WebElement element) {
 	waitForElementTobeClickable(element);
         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
@@ -115,16 +98,6 @@ public class BasePage {
         ((JavascriptExecutor) driver).executeScript(js, element);
     }
 
-    protected boolean acceptAlertPopUp() {
-        try {
-            Alert alert = driver.switchTo().alert();
-            alert.accept();
-            return true;
-        } catch (NoAlertPresentException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
 
     protected void selectByValue(WebElement el, String value) {
 	waitForElementTobeClickable(el);
